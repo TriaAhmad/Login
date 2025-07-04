@@ -8,15 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CuacaViewHolder extends RecyclerView.ViewHolder{
     public ImageView cuacaImageView;
-    public TextView namaTextView, deskripsiTextView, tglWaktuTextView, suhuTextView;
+    public TextView namaTextView2, deskripsiTextView, tglWaktuTextView, suhuTextView, weatherEmojiView;
 
     public CuacaViewHolder(View itemView) {
         super(itemView);
 
-        cuacaImageView = (ImageView)itemView.findViewById(R.id.cuacaImageView);
-        namaTextView = (TextView)itemView.findViewById(R.id.namaTextView);
-        deskripsiTextView = (TextView)itemView.findViewById(R.id.deskripsiTextView);
-        tglWaktuTextView = (TextView)itemView.findViewById(R.id.tglWaktuTextView);
-        suhuTextView = (TextView)itemView.findViewById(R.id.suhuTextView);
+        cuacaImageView = itemView.findViewById(R.id.cuacaImageView);
+        namaTextView2 = itemView.findViewById(R.id.namaTextView2);
+        deskripsiTextView = itemView.findViewById(R.id.deskripsiTextView);
+        tglWaktuTextView = itemView.findViewById(R.id.tglWaktuTextView);
+        suhuTextView = itemView.findViewById(R.id.suhuTextView);
+        weatherEmojiView = itemView.findViewById(R.id.weatherEmojiView); //Tambahan ketika menggunakan emoji. yang sebelumnya tanpa menggunakn weatherEmojiView
     }
 }

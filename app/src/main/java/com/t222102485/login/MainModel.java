@@ -1,10 +1,10 @@
 package com.t222102485.login;
 
-public class CuacaMainModel {
+public class MainModel {
     private double temp_min;
     private double temp_max;
 
-    public CuacaMainModel () {
+    public MainModel() {
     }
 
     public double getTemp_min() {

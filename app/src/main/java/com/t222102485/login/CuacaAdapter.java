@@ -1,6 +1,7 @@
 package com.t222102485.login;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,83 +20,53 @@ import java.util.Date;
 import java.util.List;
 
 public class CuacaAdapter extends RecyclerView.Adapter<CuacaViewHolder>{
-    private Activity _activity;
-    private List<CuacaListModel> _listModelList;
-    private CuacaRootModel _rootModel;
+    private final List<ListModel> cuacaList;
+    private final Context context;
 
-    public CuacaAdapter(Activity activity, CuacaRootModel rm) {
-        this._activity = activity;
-        this._rootModel = rm;
-
-        _listModelList = rm.getListModelList();
+    public CuacaAdapter(Context context, List<ListModel> cuacaList) {
+        this.context = context;
+        this.cuacaList = cuacaList;
     }
 
-    @NonNull
     @Override
-    public CuacaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.list_cuaca,parent, false);
+    public CuacaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.list_cuaca, parent, false);
         return new CuacaViewHolder(view);
     }
 
-    private double toCelcius(double kelvin) {return kelvin - 272.15;}
-
-    public String formatNumber(double number, String format) {
-        DecimalFormat decimalFormat = new DecimalFormat(format);
-        return  decimalFormat.format(number);
-    }
-
     @Override
-    public void onBindViewHolder(@NonNull CuacaViewHolder holder, int position) {
-        CuacaListModel lm = _listModelList.get(position);
-        CuacaWeatherModel wm = lm.getWeatherModelList().get(0);
-        CuacaMainModel mm = lm.getMainModel();
+    public void onBindViewHolder(CuacaViewHolder holder, int position) {
+        ListModel cuaca = cuacaList.get(position);
 
-        String suhu = formatNumber(toCelcius(mm.getTemp_min()), "###.##") + "°C - " +
-                formatNumber(toCelcius(mm.getTemp_max()), "###.##") + "°C";
+        double suhuMin = cuaca.getMainModel().getTemp_min();
+        double suhuMax = cuaca.getMainModel().getTemp_max();
+        String tanggalWaktu = cuaca.getDt_txt();
 
-        String iconUrl = "https://openweathermap.org/img/wn/" + wm.getIcon() + "@2x.png";
-        Picasso.with(_activity).load(iconUrl).into(holder.cuacaImageView);
+        if (cuaca.getWeatherModelList() != null && !cuaca.getWeatherModelList().isEmpty()) {
+            WeatherModel weather = cuaca.getWeatherModelList().get(0);
+            holder.namaTextView2.setText(weather.getMain());
+            holder.deskripsiTextView.setText(weather.getDescription());
 
-        String tanggalWaktuWib = formatWib(lm.getDt_txt());
+            String iconCode = weather.getIcon();
+            String iconUrl = "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
 
-        holder.namaTextView.setText(wm.getMain());
-        holder.deskripsiTextView.setText(wm.getDescription());
-        holder.tglWaktuTextView.setText(tanggalWaktuWib);
-        holder.suhuTextView.setText(suhu);
+            // Tampilkan gambar dari internet dengan Picasso
+            holder.weatherEmojiView.setVisibility(View.GONE);
+            holder.cuacaImageView.setVisibility(View.VISIBLE);
+            Picasso.get()
+                    .load(iconUrl)
+                    .placeholder(R.drawable.ic_launcher_background) // Gambar lokal
+                    .error(R.drawable.ic_launcher_foreground)             // Gambar lokal jika gagal
+                    .into(holder.cuacaImageView);
+        }
+
+        String suhuText = String.format("Min: %.0f°C / Max: %.0f°C", suhuMin, suhuMax);
+        holder.suhuTextView.setText(suhuText);
+        holder.tglWaktuTextView.setText(tanggalWaktu);
     }
 
     @Override
     public int getItemCount() {
-        return (_listModelList != null) ? _listModelList.size() : 0;
-    }
-
-    private String formatWib(String tanggalWaktuGmt_string){
-        Log.d( "*tw*", "Waktu GMT : " + tanggalWaktuGmt_string);
-
-        Date tanggalWaktuGmt = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        try {
-            tanggalWaktuGmt = sdf.parse(tanggalWaktuGmt_string);
-        }
-
-        catch (ParseException e)
-        {
-            Log.e("*tw*", e.getMessage());
-        }
-
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.setTime(tanggalWaktuGmt);
-        calendar.add(Calendar.HOUR_OF_DAY, 7);
-
-        Date tanggalWaktuWib = calendar.getTime();
-
-        String tanggalWaktuWib_string = sdf.format(tanggalWaktuWib);
-        tanggalWaktuWib_string = tanggalWaktuWib_string.replace("00:00", "00 WIB");
-        Log.d("*tw*", "Tanggal Waktu indonesia Barat : " + tanggalWaktuWib_string);
-
-        return tanggalWaktuWib_string;
+        return cuacaList.size();
     }
 }

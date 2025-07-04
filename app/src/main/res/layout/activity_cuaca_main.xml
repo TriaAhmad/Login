@@ -5,11 +5,210 @@
     android:id="@+id/swipeRefreshLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FAFAFA"
     tools:context=".CuacaMainActivity">
-    <androidx.recyclerview.widget.RecyclerView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recyclerView2"
-        android:background="@drawable/gradient_a">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/gradient_a"
+            android:padding="24dp"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🌤️"
+                    android:textSize="28sp"
+                    android:layout_marginEnd="12dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Weather Dashboard"
+                    android:textSize="24sp"
+                    android:textColor="#1A1A1A"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
+
+            <!-- City Input Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Search Location"
+                    android:textSize="14sp"
+                    android:textColor="#333333"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginBottom="8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:background="@drawable/gradient_c"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginEnd="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🌍"
+                            android:textSize="20sp"
+                            android:layout_marginEnd="12dp" />
+
+                        <EditText
+                            android:id="@+id/etKota"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Enter city name"
+                            android:textSize="16sp"
+                            android:textColor="#000000"
+                            android:textColorHint="#999999"
+                            android:background="@android:color/transparent"
+                            android:inputType="text"
+                            android:text="Pontianak"
+                            android:maxLines="1" />
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTampilkan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="52dp"
+                        android:text="🔍 Search"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:background="@drawable/gradient_c"
+                        android:minWidth="0dp"
+                        android:paddingHorizontal="20dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- City Info Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonView_cityInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:text="📍 View City Information"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:background="@drawable/gradient_c"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <!-- Weather Data Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/gradient_a"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📊"
+                    android:textSize="24sp"
+                    android:layout_marginEnd="12dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Weather Forecast"
+                    android:textSize="18sp"
+                    android:textColor="#1A1A1A"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/gradient_b"
+                android:padding="8dp" />
+        </LinearLayout>
+
+        <!-- Footer Stats -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/gradient_a"
+            android:padding="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📈"
+                android:textSize="20sp"
+                android:layout_marginEnd="12dp" />
+
+            <TextView
+                android:id="@+id/TotalTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Total Records: 0"
+                android:textColor="#333333"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Updated"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:background="@drawable/gradient_b"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
